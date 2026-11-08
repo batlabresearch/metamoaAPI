@@ -33,7 +33,7 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='Validate source without sending.')
     args = parser.parse_args()
     opener = urllib.request.build_opener(NoRedirect())
-    request = urllib.request.Request(SOURCE_URL, headers={'Cache-Control': 'no-cache'})
+    request = urllib.request.Request(SOURCE_URL, headers={'Cache-Control': 'no-cache', 'User-Agent': 'metamoa-count-sender/1.0'})
     with opener.open(request, timeout=30) as response:
         count = parse_count(response.read(1024).decode('utf-8'))
     if args.dry_run:
@@ -45,7 +45,7 @@ def main():
     request = urllib.request.Request(
         DESTINATION_URL,
         data=json.dumps({'count': count}).encode('utf-8'),
-        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
+        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'metamoa-count-sender/1.0'},
         method='POST',
     )
     try:
@@ -55,7 +55,14 @@ def main():
         if error.code == 429:
             print('Skipped: Metamoa rate limit (HTTP 429). Next scheduled run will retry.')
             return
-        raise RuntimeError(f'Metamoa HTTP {error.code}; no immediate retry.') from None
+        detail = ''
+        if error.headers.get('Content-Type', '').startswith('application/json'):
+            try:
+                body = json.loads(error.read(4096))
+                detail = str(body.get('error', ''))[:200]
+            except (ValueError, AttributeError):
+                pass
+        raise RuntimeError(f'Metamoa HTTP {error.code}: {detail}; no immediate retry.') from None
     if status != 204:
         raise RuntimeError(f'Unexpected Metamoa HTTP {status}.')
     print(f'Success: count={count}; HTTP 204.')
