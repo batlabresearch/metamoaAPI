@@ -26,9 +26,9 @@ with open(OUT, "a", newline="", encoding="utf-8-sig" if new else "utf-8") as f:
         w.writerow(["확인시각(KST)", "순위", "id", "이름", "접속수", "랭킹갱신시각(UTC)"])
     w.writerows(rows)
 
-# 5위~1위 사이 랜덤 숫자 (양 끝 포함)
+# 5위~1위 사이 랜덤 숫자 (양 끝 포함)를 3으로 나누고 소수점은 버립니다.
 lo, hi = sorted((rows[4][4], rows[0][4]))
-value = f"{random.randint(lo, hi)}\n"
+value = f"{random.randint(lo, hi) // 3}\n"
 with open(os.path.join(os.path.dirname(OUT), "random.txt"), "w", encoding="utf-8") as f:
     f.write(value)
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "metamoaAPI.txt"), "w", encoding="utf-8") as f:
