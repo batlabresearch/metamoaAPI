@@ -20,8 +20,11 @@ GitHub 장애·실행기 배정 지연 및 raw 캐시로 반영이 늦어질 수
 
 # Metamoa 자동 전송
 
-`Send Metamoa visitor count` 워크플로는 매시 07·17·27·37·47·57분에
-GitHub Actions에서 실행됩니다. PC나 ChatGPT 앱을 켜 둘 필요가 없습니다.
+`Send Metamoa visitor count` 워크플로는 GitHub 실행기 안에서 10분마다 전송합니다.
+실행기 하나가 최대 5시간 동안 반복한 뒤 다음 실행을 자동으로 시작하며,
+교체 시에도 다음 전송 예정 시각을 넘겨 간격을 유지합니다.
+매시 47분 예약은 중단 시 복구를 돕는 보조 수단입니다.
+PC나 ChatGPT 앱을 켜 둘 필요가 없습니다.
 
 - 원본: `https://raw.githubusercontent.com/batlabresearch/metamoaAPI/main/metamoaAPI.txt`
 - 전송: `POST https://metamoa.com/api/live/batlabresearch-github-io-mw4gjmx2`
@@ -38,5 +41,7 @@ Metamoa가 너무 잦은 요청으로 HTTP 429를 반환하면 즉시 재시도�
 공개 저장소에서 60일간 활동이 없으면 GitHub가 예약 실행을 비활성화할 수 있습니다.
 
 수동 실행: Actions → Send Metamoa visitor count → Run workflow.
+기본 실행 시간은 300분이며, 인계 검증용으로 1분을 선택해도 다음 실행은 300분입니다.
+중지하려면 워크플로를 비활성화하고 실행 중/대기 중인 작업을 취소합니다.
 전송 없이 원본 검증: `python3 scripts/send_metamoa.py --dry-run`.
 키는 소스 코드나 로그에 넣지 말고 GitHub의 Actions secret에서 관리합니다.

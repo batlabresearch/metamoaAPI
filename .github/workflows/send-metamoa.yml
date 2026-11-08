@@ -2,12 +2,22 @@ name: Send Metamoa visitor count
 
 on:
   schedule:
-    # Avoid the busiest start of each hour. GitHub may delay scheduled runs.
-    - cron: '7-57/10 * * * *'
+    # Recovery only; the running worker handles the ten-minute interval.
+    - cron: '47 * * * *'
   workflow_dispatch:
+    inputs:
+      run_minutes:
+        description: 'Worker duration (1-300 minutes); successors use 300.'
+        type: number
+        default: 300
+      not_before:
+        description: 'Earliest next send time (Unix seconds, used during handoff).'
+        type: string
+        default: '0'
 
 permissions:
   contents: read
+  actions: write
 
 concurrency:
   group: send-metamoa-visitor-count
@@ -16,12 +26,33 @@ concurrency:
 jobs:
   send:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           persist-credentials: false
-      - name: Send the latest count
+      - name: Send every ten minutes on GitHub
+        id: worker
         env:
           METAMOA_SPACE_KEY: ${{ secrets.METAMOA_SPACE_KEY }}
-        run: python3 scripts/send_metamoa.py
+          RUN_MINUTES: ${{ inputs.run_minutes || 300 }}
+          NOT_BEFORE: ${{ inputs.not_before || '0' }}
+        run: python3 -u scripts/metamoa_sender_worker.py --run-minutes "$RUN_MINUTES" --not-before "$NOT_BEFORE"
+      - name: Start the next GitHub worker
+        if: ${{ always() && !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT_SEND_AT: ${{ steps.worker.outputs.next_send_at }}
+          WORKER_OUTCOME: ${{ steps.worker.outcome }}
+        run: |
+          if [ "$WORKER_OUTCOME" != "success" ]; then
+            sleep 600
+          fi
+          for attempt in 1 2 3; do
+            if gh workflow run send-metamoa.yml --repo "$GITHUB_REPOSITORY" --ref main -f not_before="${NEXT_SEND_AT:-0}"; then
+              exit 0
+            fi
+            sleep 15
+          done
+          exit 1
