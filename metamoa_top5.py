@@ -26,10 +26,13 @@ with open(OUT, "a", newline="", encoding="utf-8-sig" if new else "utf-8") as f:
         w.writerow(["확인시각(KST)", "순위", "id", "이름", "접속수", "랭킹갱신시각(UTC)"])
     w.writerows(rows)
 
-# 5위~1위 사이 랜덤 숫자 (양 끝 포함) -> data/random.txt
+# 5위~1위 사이 랜덤 숫자 (양 끝 포함)
 lo, hi = sorted((rows[4][4], rows[0][4]))
+value = f"{random.randint(lo, hi)}\n"
 with open(os.path.join(os.path.dirname(OUT), "random.txt"), "w", encoding="utf-8") as f:
-    f.write(f"{random.randint(lo, hi)}\n")
+    f.write(value)
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "metamoaAPI.txt"), "w", encoding="utf-8") as f:
+    f.write(value)
 
 # 최신 값만 담은 파일 (http 주소로 바로 볼 용도)
 d = os.path.dirname(OUT)

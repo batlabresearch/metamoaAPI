@@ -1,24 +1,24 @@
 {
-  "checked_at_kst": "2026-11-08 21:18:49",
-  "ranking_built_at": "2026-11-08T12:18:02.152Z",
+  "checked_at_kst": "2026-11-08 21:28:29",
+  "ranking_built_at": "2026-11-08T12:28:28.110Z",
   "top5": [
     {
       "rank": 1,
       "id": "gatbawi-online",
       "name": "온라인 갓바위 | 마음을 담아 올리는 소원기도",
-      "n": 384
+      "n": 389
     },
     {
       "rank": 2,
       "id": "sansa-temple",
       "name": "산사",
-      "n": 356
+      "n": 360
     },
     {
       "rank": 3,
       "id": "spotv-metaverse-vercel-app-mw4n5va0",
       "name": "SPOTV - 메타버스 야구장",
-      "n": 255
+      "n": 258
     },
     {
       "rank": 4,
@@ -30,7 +30,7 @@
       "rank": 5,
       "id": "wouldyou-space-walk",
       "name": "우주 산책 · 지구에서 멀어지기",
-      "n": 183
+      "n": 184
     }
   ]
 }
