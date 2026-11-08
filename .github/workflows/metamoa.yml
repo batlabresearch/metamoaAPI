@@ -2,34 +2,53 @@ name: Metamoa Sansa
 
 on:
   schedule:
-    # 정각 혼잡을 피해 매시 03,10,17,24,31,38,45,52,59분에 실행합니다.
-    # GitHub 예약 실행은 지연될 수 있고, 59분 다음 03분 사이는 4분입니다.
-    - cron: "3-59/7 * * * *"
-  workflow_dispatch:         # Actions 탭에서 수동 실행 버튼
+    # 실행기 내부의 7분 반복을 보조하는 복구 예약입니다.
+    - cron: "23 * * * *"
+  workflow_dispatch:
+    inputs:
+      run_minutes:
+        description: "이번 실행 유지 시간(분, 1~300). 다음 실행은 기본 300분."
+        type: number
+        default: 300
+        required: false
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
-  group: metamoa-top5
+  group: metamoa-sansa-worker
   cancel-in-progress: false
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: 산사 현재 접속자 수로 최종값 계산
-        run: python3 metamoa_top5.py
-      - name: 기록 저장(커밋)
+      - name: GitHub 서버에서 7분마다 갱신
+        id: worker
+        env:
+          RUN_MINUTES: ${{ inputs.run_minutes || 300 }}
+        run: python3 -u metamoa_worker.py --run-minutes "$RUN_MINUTES"
+      - name: 다음 GitHub 실행 자동 연결
+        if: ${{ always() && !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKER_OUTCOME: ${{ steps.worker.outcome }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add data/ metamoaAPI.txt
-          git commit -m "기록 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')" || exit 0
-          git pull --rebase
-          git push
+          if [ "$WORKER_OUTCOME" != "success" ]; then
+            sleep 420
+          fi
+          for attempt in 1 2 3; do
+            if gh workflow run metamoa.yml --repo "$GITHUB_REPOSITORY" --ref main; then
+              exit 0
+            fi
+            sleep 15
+          done
+          exit 1
