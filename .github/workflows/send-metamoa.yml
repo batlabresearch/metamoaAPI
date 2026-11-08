@@ -1,0 +1,27 @@
+name: Send Metamoa visitor count
+
+on:
+  schedule:
+    # Avoid the busiest start of each hour. GitHub may delay scheduled runs.
+    - cron: '7-57/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: send-metamoa-visitor-count
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Send the latest count
+        env:
+          METAMOA_SPACE_KEY: ${{ secrets.METAMOA_SPACE_KEY }}
+        run: python3 scripts/send_metamoa.py
