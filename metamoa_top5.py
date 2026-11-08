@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""산사의 현재 접속자 수로 최종 정수 값을 계산해 저장합니다."""
+"""네 공간의 현재 접속자 수 중 최댓값으로 최종 정수를 계산합니다."""
 import csv
 import json
 import os
@@ -10,7 +10,12 @@ from datetime import datetime, timezone, timedelta
 BASE = "https://metamoa.com/api"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(ROOT, "data")
-SPACE_ID = "sansa-temple"
+SPACE_IDS = (
+    "sansa-temple",
+    "gatbawi-online",
+    "korulive-com-mw0jtwgu",
+    "metabus-fortunecafe-kr-mw1p2ecl",
+)
 KST = timezone(timedelta(hours=9))
 
 def get(path):
@@ -20,12 +25,19 @@ def get(path):
 
 def main():
     payload = get("/spaces")
-    space = next((s for s in payload["spaces"] if s["id"] == SPACE_ID), None)
-    if space is None:
-        raise ValueError("산사 항목을 찾을 수 없습니다.")
-    online = space.get("online")
-    if type(online) is not int or online < 0:
-        raise ValueError(f"산사의 현재 접속자 수가 올바르지 않습니다: {online!r}")
+    by_id = {s["id"]: s for s in payload["spaces"]}
+    sources = []
+    for space_id in SPACE_IDS:
+        space = by_id.get(space_id)
+        if space is None:
+            raise ValueError(f"공간 항목을 찾을 수 없습니다: {space_id}")
+        online = space.get("online")
+        if type(online) is not int or online < 0:
+            raise ValueError(f"현재 접속자 수가 올바르지 않습니다: {space_id}={online!r}")
+        sources.append({"id": space_id, "name": space.get("name", space_id),
+                        "online": online, "online_at": space.get("online_at")})
+    space = max(sources, key=lambda s: s["online"])
+    online = space["online"]
 
     extra = random.randint(0, 9)
     # 양수에 대해 int(online * 0.9 + extra)와 같으며 부동소수점 오차를 피합니다.
@@ -35,34 +47,37 @@ def main():
         "checked_at_kst": ts,
         "source_url": BASE + "/spaces",
         "source_built_at": payload.get("built_at"),
-        "space_id": SPACE_ID,
-        "name": space.get("name", SPACE_ID),
+        "spaces": sources,
+        "space_id": space["id"],
+        "name": space["name"],
         "online": online,
+        "max_online": online,
         "online_at": space.get("online_at"),
         "random_digit": extra,
-        "formula": "floor(online * 0.9 + random_digit)",
+        "formula": "floor(max_online * 0.9 + random_digit)",
         "value": result,
     }
 
     os.makedirs(DATA, exist_ok=True)
-    history = os.path.join(DATA, "sansa.csv")
+    history = os.path.join(DATA, "four_spaces.csv")
     new = not os.path.exists(history)
     with open(history, "a", newline="", encoding="utf-8-sig" if new else "utf-8") as f:
         writer = csv.writer(f)
         if new:
-            writer.writerow(["확인시각(KST)", "id", "이름", "현재접속자수", "접속자수갱신시각(UTC)", "랜덤숫자", "최종값"])
-        writer.writerow([ts, SPACE_ID, latest["name"], online, latest["online_at"], extra, result])
+            writer.writerow(["확인시각(KST)", "산사", "갓바위", "코루라이브", "온라인신당", "최대공간id", "최대접속자수", "랜덤숫자", "최종값"])
+        writer.writerow([ts, *(s["online"] for s in sources), space["id"], online, extra, result])
 
     value = f"{result}\n"
     for path in (os.path.join(ROOT, "metamoaAPI.txt"), os.path.join(DATA, "random.txt")):
         with open(path, "w", encoding="utf-8") as f:
             f.write(value)
     with open(os.path.join(DATA, "numbers.txt"), "w", encoding="utf-8") as f:
-        f.write(f"{online}\n")
+        f.write(",".join(str(s["online"]) for s in sources) + "\n")
     with open(os.path.join(DATA, "latest.json"), "w", encoding="utf-8") as f:
         json.dump(latest, f, ensure_ascii=False, indent=2)
 
-    print(f"[{ts}] 산사 {online}명 × 0.9 + {extra} → {result}")
+    print(f"[{ts}] " + ", ".join(f"{s['name']}={s['online']}명" for s in sources))
+    print(f"최대: {space['name']} {online}명 × 0.9 + {extra} → {result}")
 
 
 if __name__ == "__main__":

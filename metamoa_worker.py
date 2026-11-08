@@ -38,7 +38,7 @@ def publish():
     if diff.returncode != 1:
         raise RuntimeError("git diff failed")
     stamp = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
-    git("commit", "-m", f"산사 자동 갱신 {stamp}")
+    git("commit", "-m", f"4개 공간 최대값 자동 갱신 {stamp}")
     for attempt in range(3):
         try:
             git("push", "origin", "HEAD:main")
@@ -85,7 +85,7 @@ def main():
             summary = os.environ.get("GITHUB_STEP_SUMMARY")
             if summary:
                 with open(summary, "a", encoding="utf-8") as f:
-                    f.write(f"- {latest['checked_at_kst']} KST: 산사 {latest['online']}명, 최종값 **{latest['value']}**\n")
+                    f.write(f"- {latest['checked_at_kst']} KST: {latest['name']} {latest['online']}명, 최종값 **{latest['value']}**\n")
             due = next_due(ROOT / "data" / "latest.json", time.time())
         else:
             due = time.time() + INTERVAL_SECONDS

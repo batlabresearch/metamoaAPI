@@ -1,12 +1,13 @@
-# 산사 값 자동 생성
+# 4개 공간 최대값 자동 생성
 
-`Metamoa Sansa`는 GitHub 서버에서 **7분마다** 산사의 최신 `online` 값을
-조회하고 `floor(online * 0.9 + random_digit)`를 계산합니다. `random_digit`은 0~9입니다.
+`Metamoa Max Online`은 GitHub 서버에서 **7분마다** 산사·온라인 갓바위·코루라이브 객장·
+온라인 신당(재회, 연애, 취업)의 최신 `online` 값을 조회하고 최댓값을 선택합니다.
+`floor(max_online * 0.9 + random_digit)`를 계산하며, `random_digit`은 0~9입니다.
 결과는 루트의 `metamoaAPI.txt`에 숫자 하나로 저장됩니다.
 
 - 반환 주소: https://raw.githubusercontent.com/batlabresearch/metamoaAPI/main/metamoaAPI.txt
 - 확인 시각·원본·계산 결과: `data/latest.json`
-- 누적 기록: `data/sansa.csv`
+- 누적 기록: `data/four_spaces.csv` (기존 산사 기록은 `data/sansa.csv`에 보관)
 
 실행기 하나가 5시간 동안 7분 간격으로 갱신하고, 끝나면 저장소의 `GITHUB_TOKEN`으로
 다음 실행을 시작합니다. 실행이 교체돼도 마지막 수집 시각에서 7분 뒤에 갱신합니다.
@@ -14,7 +15,7 @@
 GPT 앱이나 사용자 PC를 켜 둘 필요가 없습니다.
 GitHub 장애·실행기 배정 지연 및 raw 캐시로 반영이 늦어질 수 있습니다.
 
-시작: Actions → Metamoa Sansa → Run workflow (기본 300분).
+시작: Actions → Metamoa Max Online → Run workflow (기본 300분).
 중지: 워크플로를 비활성화한 뒤 진행 중인 실행과 대기 중인 실행을 취소합니다.
 
 # Metamoa 자동 전송
