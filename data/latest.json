@@ -1,12 +1,12 @@
 {
-  "checked_at_kst": "2026-11-08 22:24:16",
+  "checked_at_kst": "2026-11-08 22:31:17",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-08T13:24:08.808Z",
+  "source_built_at": "2026-11-08T13:31:08.090Z",
   "space_id": "sansa-temple",
   "name": "산사",
-  "online": 53,
-  "online_at": "2026-11-08T13:17:03.645Z",
-  "random_digit": 5,
+  "online": 50,
+  "online_at": "2026-11-08T13:28:03.005Z",
+  "random_digit": 6,
   "formula": "floor(online * 0.9 + random_digit)",
-  "value": 52
+  "value": 51
 }
