@@ -2,7 +2,7 @@
 
 `Metamoa Max Online`은 GitHub 서버에서 **7분마다** 산사·온라인 갓바위·코루라이브 객장·
 온라인 신당(재회, 연애, 취업)의 최신 `online` 값을 조회하고 최댓값을 선택합니다.
-`floor(max_online * 0.9 + random_digit)`를 계산하며, `random_digit`은 0~9입니다.
+`floor(max_online * 0.9 + random_digit)`를 계산하며, `random_digit`은 -5~5 사이 정수입니다(양 끝 포함).
 결과는 루트의 `metamoaAPI.txt`에 숫자 하나로 저장됩니다.
 
 - 반환 주소: https://raw.githubusercontent.com/batlabresearch/metamoaAPI/main/metamoaAPI.txt

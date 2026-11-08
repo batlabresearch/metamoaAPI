@@ -39,8 +39,8 @@ def main():
     space = max(sources, key=lambda s: s["online"])
     online = space["online"]
 
-    extra = random.randint(0, 9)
-    # 양수에 대해 int(online * 0.9 + extra)와 같으며 부동소수점 오차를 피합니다.
+    extra = random.randint(-5, 5)
+    # floor(online * 0.9 + extra)를 정수 연산으로 계산해 부동소수점 오차를 피합니다.
     result = online * 9 // 10 + extra
     ts = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
     latest = {
@@ -54,6 +54,7 @@ def main():
         "max_online": online,
         "online_at": space.get("online_at"),
         "random_digit": extra,
+        "random_range": [-5, 5],
         "formula": "floor(max_online * 0.9 + random_digit)",
         "value": result,
     }
