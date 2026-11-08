@@ -1,36 +1,12 @@
 {
-  "checked_at_kst": "2026-11-08 22:02:16",
-  "ranking_built_at": "2026-11-08T13:02:14.282Z",
-  "top5": [
-    {
-      "rank": 1,
-      "id": "gatbawi-online",
-      "name": "온라인 갓바위 | 마음을 담아 올리는 소원기도",
-      "n": 382
-    },
-    {
-      "rank": 2,
-      "id": "sansa-temple",
-      "name": "산사",
-      "n": 325
-    },
-    {
-      "rank": 3,
-      "id": "spotv-metaverse-vercel-app-mw4n5va0",
-      "name": "SPOTV - 메타버스 야구장",
-      "n": 241
-    },
-    {
-      "rank": 4,
-      "id": "kbo-ballpark",
-      "name": "온라인 야구장",
-      "n": 195
-    },
-    {
-      "rank": 5,
-      "id": "wouldyou-space-walk",
-      "name": "우주 산책 · 지구에서 멀어지기",
-      "n": 175
-    }
-  ]
+  "checked_at_kst": "2026-11-08 22:10:34",
+  "source_url": "https://metamoa.com/api/spaces",
+  "source_built_at": "2026-11-08T13:10:33.712Z",
+  "space_id": "sansa-temple",
+  "name": "산사",
+  "online": 64,
+  "online_at": "2026-11-08T13:06:04.116Z",
+  "random_digit": 7,
+  "formula": "floor(online * 0.9 + random_digit)",
+  "value": 64
 }

@@ -1,4 +1,4 @@
-name: Metamoa Top5
+name: Metamoa Sansa
 
 on:
   schedule:
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: 1~5위 확인
+      - name: 산사 현재 접속자 수로 최종값 계산
         run: python3 metamoa_top5.py
       - name: 기록 저장(커밋)
         run: |
