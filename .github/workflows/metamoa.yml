@@ -2,7 +2,9 @@ name: Metamoa Top5
 
 on:
   schedule:
-    - cron: "*/7 * * * *"   # 7분마다 (GitHub 사정에 따라 몇 분씩 늦어질 수 있음)
+    # 정각 혼잡을 피해 매시 03,10,17,24,31,38,45,52,59분에 실행합니다.
+    # GitHub 예약 실행은 지연될 수 있고, 59분 다음 03분 사이는 4분입니다.
+    - cron: "3-59/7 * * * *"
   workflow_dispatch:         # Actions 탭에서 수동 실행 버튼
 
 permissions:
