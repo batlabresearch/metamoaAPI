@@ -1,13 +1,13 @@
 {
-  "checked_at_kst": "2026-11-11 12:01:28",
+  "checked_at_kst": "2026-11-11 12:08:30",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-11T03:01:21.487Z",
+  "source_built_at": "2026-11-11T03:08:28.064Z",
   "spaces": [
     {
       "id": "sansa-temple",
       "name": "산사",
-      "online": 183,
-      "online_at": "2026-11-11T02:53:03.519Z"
+      "online": 186,
+      "online_at": "2026-11-11T03:04:02.817Z"
     },
     {
       "id": "gatbawi-online",
@@ -30,14 +30,14 @@
   ],
   "space_id": "sansa-temple",
   "name": "산사",
-  "online": 183,
-  "max_online": 183,
-  "online_at": "2026-11-11T02:53:03.519Z",
-  "random_digit": 4,
+  "online": 186,
+  "max_online": 186,
+  "online_at": "2026-11-11T03:04:02.817Z",
+  "random_digit": 5,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 168
+  "value": 172
 }
