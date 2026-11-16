@@ -1,7 +1,7 @@
 {
-  "checked_at_kst": "2026-11-16 10:32:34",
+  "checked_at_kst": "2026-11-16 10:39:34",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-16T01:32:25.152Z",
+  "source_built_at": "2026-11-16T01:35:12.315Z",
   "spaces": [
     {
       "id": "sansa-temple",
@@ -24,8 +24,8 @@
     {
       "id": "metabus-fortunecafe-kr-mw1p2ecl",
       "name": "온라인 신당 - 재회, 연애, 취업",
-      "online": 10,
-      "online_at": "2026-11-16T01:22:39.441Z"
+      "online": 17,
+      "online_at": "2026-11-16T01:32:39.526Z"
     }
   ],
   "space_id": "sansa-temple",
@@ -33,11 +33,11 @@
   "online": 96,
   "max_online": 96,
   "online_at": "2026-11-16T01:24:02.914Z",
-  "random_digit": -4,
+  "random_digit": 4,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 82
+  "value": 90
 }
