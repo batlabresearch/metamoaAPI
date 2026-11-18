@@ -1,7 +1,7 @@
 {
-  "checked_at_kst": "2026-11-18 10:17:02",
+  "checked_at_kst": "2026-11-18 10:24:02",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-18T01:08:11.275Z",
+  "source_built_at": "2026-11-18T01:15:07.184Z",
   "spaces": [
     {
       "id": "sansa-temple",
@@ -12,8 +12,8 @@
     {
       "id": "gatbawi-online",
       "name": "온라인 갓바위 | 마음을 담아 올리는 소원기도",
-      "online": 78,
-      "online_at": "2026-11-18T00:59:02.677Z"
+      "online": 89,
+      "online_at": "2026-11-18T01:12:02.789Z"
     },
     {
       "id": "korulive-com-mw0jtwgu",
@@ -25,7 +25,7 @@
       "id": "metabus-fortunecafe-kr-mw1p2ecl",
       "name": "온라인 신당 - 재회, 연애, 취업",
       "online": 10,
-      "online_at": "2026-11-18T00:59:34.865Z"
+      "online_at": "2026-11-18T01:10:35.402Z"
     }
   ],
   "space_id": "sansa-temple",
@@ -33,11 +33,11 @@
   "online": 112,
   "max_online": 112,
   "online_at": "2026-11-18T01:04:02.599Z",
-  "random_digit": 5,
+  "random_digit": -5,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 105
+  "value": 95
 }
