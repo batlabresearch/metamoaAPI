@@ -1,7 +1,7 @@
 {
-  "checked_at_kst": "2026-11-19 11:17:47",
+  "checked_at_kst": "2026-11-19 11:24:47",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-19T02:17:40.654Z",
+  "source_built_at": "2026-11-19T02:17:01.236Z",
   "spaces": [
     {
       "id": "sansa-temple",
@@ -33,11 +33,11 @@
   "online": 138,
   "max_online": 138,
   "online_at": "2026-11-19T02:07:02.697Z",
-  "random_digit": -3,
+  "random_digit": -5,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 121
+  "value": 119
 }
