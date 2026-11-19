@@ -1,13 +1,13 @@
 {
-  "checked_at_kst": "2026-11-19 22:16:40",
+  "checked_at_kst": "2026-11-19 22:23:40",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-19T13:12:21.698Z",
+  "source_built_at": "2026-11-19T13:22:35.574Z",
   "spaces": [
     {
       "id": "sansa-temple",
       "name": "산사",
-      "online": 72,
-      "online_at": "2026-11-19T13:02:02.446Z"
+      "online": 68,
+      "online_at": "2026-11-19T13:15:02.574Z"
     },
     {
       "id": "gatbawi-online",
@@ -18,26 +18,26 @@
     {
       "id": "korulive-com-mw0jtwgu",
       "name": "코루라이브 객장",
-      "online": 74,
-      "online_at": "2026-11-19T12:35:22.807Z"
+      "online": 76,
+      "online_at": "2026-11-19T13:12:52.046Z"
     },
     {
       "id": "metabus-fortunecafe-kr-mw1p2ecl",
       "name": "온라인 신당 - 재회, 연애, 취업",
       "online": 9,
-      "online_at": "2026-11-19T13:11:19.905Z"
+      "online_at": "2026-11-19T13:21:21.213Z"
     }
   ],
   "space_id": "korulive-com-mw0jtwgu",
   "name": "코루라이브 객장",
-  "online": 74,
-  "max_online": 74,
-  "online_at": "2026-11-19T12:35:22.807Z",
-  "random_digit": -2,
+  "online": 76,
+  "max_online": 76,
+  "online_at": "2026-11-19T13:12:52.046Z",
+  "random_digit": -1,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 64
+  "value": 67
 }
