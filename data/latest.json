@@ -1,5 +1,5 @@
 {
-  "checked_at_kst": "2026-11-20 20:29:33",
+  "checked_at_kst": "2026-11-20 20:36:33",
   "source_url": "https://metamoa.com/api/spaces",
   "source_built_at": "2026-11-20T11:29:27.198Z",
   "spaces": [
@@ -33,11 +33,11 @@
   "online": 71,
   "max_online": 71,
   "online_at": "2026-11-20T11:28:23.537Z",
-  "random_digit": -3,
+  "random_digit": 0,
   "random_range": [
     -5,
     5
   ],
   "formula": "floor(max_online * 0.9 + random_digit)",
-  "value": 60
+  "value": 63
 }
