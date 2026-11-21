@@ -1,13 +1,13 @@
 {
-  "checked_at_kst": "2026-11-21 10:16:50",
+  "checked_at_kst": "2026-11-21 10:23:50",
   "source_url": "https://metamoa.com/api/spaces",
-  "source_built_at": "2026-11-21T01:09:36.348Z",
+  "source_built_at": "2026-11-21T01:20:27.544Z",
   "spaces": [
     {
       "id": "sansa-temple",
       "name": "산사",
-      "online": 40,
-      "online_at": "2026-11-21T01:00:03.850Z"
+      "online": 41,
+      "online_at": "2026-11-21T01:13:03.018Z"
     },
     {
       "id": "gatbawi-online",
@@ -24,8 +24,8 @@
     {
       "id": "metabus-fortunecafe-kr-mw1p2ecl",
       "name": "온라인 신당 - 재회, 연애, 취업",
-      "online": 11,
-      "online_at": "2026-11-21T01:04:06.990Z"
+      "online": 14,
+      "online_at": "2026-11-21T01:14:07.674Z"
     }
   ],
   "space_id": "korulive-com-mw0jtwgu",
